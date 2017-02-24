@@ -37,3 +37,13 @@
 *.opendb
 *.db
 *.suo
+*.sln
+*.vcxproj
+*.filters
+*.user
+*.ilk
+*.log
+*.pdb
+*.tlog
+*.tlog
+*.idb

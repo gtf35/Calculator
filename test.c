@@ -16,3 +16,4 @@ int main(void) {
 	printf("istop():%d isbottom():%d isend():%d\n", istop(ptr), isbottom(ptr), isend(ptr));
 	getchar();
 }
+

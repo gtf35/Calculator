@@ -1,6 +1,6 @@
 #include<stdlib.h>
 
-#ifndef __cplusplus
+#include"numlst.h"
 
 #ifndef NUMLST_C
 #define NUMLST_C
@@ -10,12 +10,6 @@
 typedef _Bool bool;
 
 #endif // _STDBOOL
-
-typedef struct {
-	void*stptr;
-	char num;
-	void*nxptr;
-} numlst;
 
 numlst**newlst(void) {
 	numlst**nptr = malloc(sizeof(numlst*));
@@ -48,12 +42,16 @@ void setnum(numlst**ptr, int num) {
 	(*ptr)->num = num;
 }
 
-void toup(numlst**ptr) {
+bool toup(numlst**ptr) {
+	if(istop(ptr))return 0;
 	*ptr = (*ptr)->stptr;
+	return 1;
 }
 
-void todown(numlst**ptr) {
+bool todown(numlst**ptr) {
+	if(isbottom(ptr))return 0;
 	*ptr = (*ptr)->nxptr;
+	return 1;
 }
 
 void totop(numlst**ptr) {
@@ -119,7 +117,7 @@ void adddown(numlst**ptr) {
 
 #endif // NUMLST_C
 
-#else // __cplusplus
+#ifdef __cplusplus
 
 #error This is a C program.
 

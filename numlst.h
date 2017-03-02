@@ -1,7 +1,5 @@
 #pragma once
 
-#ifndef __cplusplus
-
 #ifndef NUMLST_H
 #define NUMLST_H
 
@@ -23,8 +21,8 @@ bool istop(numlst**ptr);
 bool isbottom(numlst**ptr);
 int getnum(numlst**ptr);
 void setnum(numlst**ptr, int num);
-void toup(numlst**ptr);
-void todown(numlst**ptr);
+bool toup(numlst**ptr);
+bool todown(numlst**ptr);
 void totop(numlst**ptr);
 void delup(numlst**ptr);
 void deldown(numlst**ptr);
@@ -33,7 +31,7 @@ void adddown(numlst**ptr);
 
 #endif // NUMLST_H
 
-#else // __cplusplus
+#ifdef __cplusplus
 
 #error This is a C program.
 

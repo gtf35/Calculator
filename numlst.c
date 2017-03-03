@@ -1,15 +1,7 @@
-#include<stdlib.h>
-
-#include"numlst.h"
-
 #ifndef NUMLST_C
 #define NUMLST_C
 
-#ifndef _STDBOOL
-
-typedef _Bool bool;
-
-#endif // _STDBOOL
+#include"numlst.h"
 
 numlst**newlst(void) {
 	numlst**nptr = malloc(sizeof(numlst*));
@@ -55,11 +47,18 @@ bool todown(numlst**ptr) {
 }
 
 void totop(numlst**ptr) {
-	do toup(ptr);
-	while (!isend(ptr));
+	while (toup(ptr));
+}
+
+void tobottom(numlst**ptr) {
+	while (todown(ptr));
 }
 
 void delup(numlst**ptr) {
+	if (istop(ptr) && isbottom(ptr)) {
+		free(*ptr);
+		return;
+	}
 	toup(ptr);
 	if (isend(ptr)) {
 		todown(ptr);
@@ -75,6 +74,10 @@ void delup(numlst**ptr) {
 }
 
 void deldown(numlst**ptr) {
+	if (istop(ptr) && isbottom(ptr)) {
+		free(*ptr);
+		return;
+	}
 	todown(ptr);
 	if (isend(ptr)) {
 		toup(ptr);
@@ -87,6 +90,12 @@ void deldown(numlst**ptr) {
 		nxnxptr->stptr = *ptr;
 		(*ptr)->nxptr = nxnxptr;
 	}
+}
+
+void delst(numlst**ptr) {
+	totop(ptr);
+	while (todown(ptr))free((*ptr)->stptr);
+	free(*ptr);
 }
 
 void addup(numlst**ptr) {
@@ -115,11 +124,32 @@ void adddown(numlst**ptr) {
 	(*ptr)->nxptr = nptr;
 }
 
-#endif // NUMLST_C
+void flip(numlst**ptr) {
+	numlst**nptr = newlst();
+	tobottom(ptr);
+	do {
+		setnum(nptr, getnum(ptr));
+		adddown(nptr);
+		todown(nptr);
+	}
+	while (toup(ptr));
+	delst(ptr);
+	*ptr = *nptr;
+}
+
+void cutzero(numlst**ptr) {
+	totop(ptr);
+	while (!getnum(ptr)) {
+		if (todown(ptr))delup(ptr);
+		else break;
+	}
+}
+
+#endif /* NUMLST_C */
 
 #ifdef __cplusplus
 
-#error This is a C program.
+#error This program is written in C.
 
-#endif // __cplusplus
+#endif /* __cplusplus */
 
